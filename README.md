@@ -1,2 +1,2 @@
-# atelier2_backoffice
+# Geoquizz_backoffice
 Backoffice pour l'API REST de l'atelier.
