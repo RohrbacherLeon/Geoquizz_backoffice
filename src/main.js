@@ -8,19 +8,33 @@ import Dashboard from './components/Dashboard.vue'
 Vue.config.productionTip = false
 Vue.use(VueRouter);
 
+const isLogged = (to, from, next) => {
+  if(localStorage.getItem('token')){
+    next();
+  }else{
+    next('/login')
+  }
+}
+
+const isNotLogged = (to, from, next) => {
+  if(!localStorage.getItem('token')){
+    next();
+  }else{
+    next('/')
+  }
+}
+
 const routes = [
-  { path: '/login', component: Login },
-  { path: '/signup', component: Register },
+  { 
+    path: '/login', 
+    component: Login,
+    beforeEnter: isNotLogged
+  },
+  { path: '/signup', component: Register, beforeEnter: isNotLogged },
   { 
     path: '/dashboard', 
     component: Dashboard ,
-    beforeEnter: (to, from, next) => {
-      if(localStorage.getItem('token')){
-        next();
-      }else{
-        next('/login')
-      }
-    }
+    beforeEnter: isLogged
 
   },
 ]
