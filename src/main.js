@@ -9,7 +9,7 @@ Vue.config.productionTip = false
 Vue.use(VueRouter);
 
 const isLogged = (to, from, next) => {
-  if(localStorage.getItem('token')){
+  if(localStorage.getItem('user')){
     next();
   }else{
     next('/login')
@@ -17,7 +17,7 @@ const isLogged = (to, from, next) => {
 }
 
 const isNotLogged = (to, from, next) => {
-  if(!localStorage.getItem('token')){
+  if(!localStorage.getItem('user')){
     next();
   }else{
     next('/')

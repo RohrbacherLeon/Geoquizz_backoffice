@@ -34,13 +34,13 @@
     export default {
         methods:{
             logout(){
-                localStorage.removeItem('token')
+                localStorage.removeItem('user')
                 this.$router.push('/login')
             }
         },
         computed:{
             showLogout(){
-                return localStorage.getItem('token')
+                return localStorage.getItem('user')
             }
         }
     }
