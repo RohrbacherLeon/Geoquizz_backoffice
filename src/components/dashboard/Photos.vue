@@ -2,9 +2,9 @@
     <div >
         <div v-if="photosToSend.length > 0" class="row">
             <div class="input-group col-6 offset-3">
-                <select class="custom-select" id="inputGroupSelect04" v-model="serieName">
+                <select class="custom-select" id="inputGroupSelect04" v-model="serieId">
                     <option selected>Choisir une série</option>
-                    <option v-for="(serie, index) in series" :key="index" :value="serie.ville">{{serie.ville}}</option>
+                    <option v-for="(serie, index) in series" :key="index" :value="serie.id">{{serie.ville}}</option>
                 </select>
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" @click="insertInSerie" data-toggle="modal" data-target="#exampleModal">Ajouter</button>
@@ -23,7 +23,7 @@
             
         </div>
 
-        <Modal v-if="showModal" v-on:dicreasePhotos="dicreasePhotos" :photos='photosToSend'></Modal>
+        <Modal v-if="showModal" :serie="serieId" v-on:dicreasePhotos="dicreasePhotos" :photos='photosToSend'></Modal>
     </div>
 </template>
 
@@ -40,7 +40,7 @@ export default {
             photos:[],
             photosToSend:[],
             series: [],
-            serieName:"",
+            serieId:"",
             description:"",
             showModal:false
         }
@@ -52,11 +52,9 @@ export default {
             headers: {"x-token": token}
         }).then(res => {
             this.photos = res.data._embedded.photos;
-            console.log(this.photos)
         })
 
         axios.get(`http://localhost:8080/series`).then(res => {
-            console.log(res)
             this.series = res.data._embedded.series;
         })
     },
@@ -72,7 +70,6 @@ export default {
         insertInSerie(e){
             e.preventDefault();
             this.showModal=true;
-            console.log(this.serieName)
 
         },
         dicreasePhotos(id){
