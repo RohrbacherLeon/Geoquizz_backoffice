@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import Register from './components/Register.vue'
 import Login from './components/Login.vue'
 import Dashboard from './components/Dashboard.vue'
+import Photos from './components/dashboard/Photos.vue'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter);
@@ -34,9 +35,14 @@ const routes = [
   { 
     path: '/dashboard', 
     component: Dashboard ,
-    beforeEnter: isLogged
+    beforeEnter: isLogged,
+    children: [
+      {
+        path: 'photos',
+        component: Photos
+      }],
 
-  },
+  }
 ]
 
 const router = new VueRouter({
