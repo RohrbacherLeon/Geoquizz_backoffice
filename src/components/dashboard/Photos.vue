@@ -1,14 +1,17 @@
 <template>
     <div >
         <div v-if="photosToSend.length > 0" class="row">
-            <div class="input-group col-6 offset-3">
+            <div class="input-group col-6 offset-2">
                 <select class="custom-select" id="inputGroupSelect04" v-model="serieId">
-                    <option selected>Choisir une série</option>
+                    <option value="-1">Choisir une serie</option>
                     <option v-for="(serie, index) in series" :key="index" :value="serie.id">{{serie.ville}}</option>
                 </select>
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button" @click="insertInSerie" data-toggle="modal" data-target="#exampleModal">Ajouter</button>
                 </div>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-primary" @click="showCreateModal" type="button" data-toggle="modal" data-target="#createModal">Créer</button>
             </div>
         </div>
         <!-- Icon Cards-->
@@ -24,16 +27,18 @@
         </div>
 
         <Modal v-if="showModal" :serie="serieId" v-on:dicreasePhotos="dicreasePhotos" :photos='photosToSend'></Modal>
+        <Create v-if="showCreate" v-on:reloadSeries="reloadSeries"></Create>
     </div>
 </template>
 
 <script>
 import axios from "axios"
 import Modal from '../Modal.vue'
+import Create from '../Create.vue'
 
 export default {
     components:{
-        Modal
+        Modal, Create
     },
     data(){
         return{
@@ -42,7 +47,8 @@ export default {
             series: [],
             serieId:"",
             description:"",
-            showModal:false
+            showModal:false,
+            showCreate:false
         }
     },
     mounted(){
@@ -54,9 +60,7 @@ export default {
             this.photos = res.data._embedded.photos;
         })
 
-        axios.get(`http://localhost:8080/series`).then(res => {
-            this.series = res.data._embedded.series;
-        })
+        this.reloadSeries()
     },
     methods: {
         addPhotoToSerie(photo){
@@ -89,6 +93,15 @@ export default {
                 this.showModal = false
                 document.querySelector('.modal-backdrop').remove();
             }
+        },
+        showCreateModal(){
+            this.showCreate = true;
+        },
+        reloadSeries(){
+            this.showCreate = false;
+            axios.get(`http://localhost:8080/series`).then(res => {
+                this.series = res.data._embedded.series.slice(1);
+            })
         }
 
         

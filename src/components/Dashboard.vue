@@ -15,12 +15,6 @@
                     <span>Mes photos</span>
                 </router-link>
             </li>
-            <li class="nav-item" @click="setBreadcrumbs('serie')">
-                <router-link class="nav-link" to="dashboard/create-serie" >
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Créer une série</span>
-                </router-link>
-            </li>
         </ul>
 
         <div id="content-wrapper">
