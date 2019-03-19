@@ -9,8 +9,8 @@
                 </button>
                 <img :src="'http://localhost:8084/photos/'+photos[0].url" class="img-thumbnail rounded ">
                 <div class="form-group">
-                    <label for="description">Ajouter une description</label>
-                    <textarea class="form-control" name="description" id="description" cols="30" rows="10" v-model="description"></textarea>
+                    <label for="description">Ajouter ou modifier la description</label>
+                    <textarea class="form-control" name="description" id="description" cols="30" rows="10" :value="photos[0].description" @input="setDesc"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
@@ -27,11 +27,14 @@ import axios from "axios"
 export default {
     data() {
         return {
-            description:""
+            description: ""
         }
     },
     props:['photos', 'serie'],
     methods: {
+        setDesc(e){
+            this.description = e.target.value;
+        },
         saveDescription(photo){
             photo.description = this.description;
             photo.serie = {id:this.serie};
