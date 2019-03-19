@@ -13,6 +13,13 @@
             <div class="col-2">
                 <button class="btn btn-primary" @click="showCreateModal" type="button" data-toggle="modal" data-target="#createModal">Créer</button>
             </div>
+
+            
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <button class="btn btn-primary" @click="showAddPhotoModal" type="button" data-toggle="modal" data-target="#addPhoto">Ajouter une image</button>
+            </div>
         </div>
         <!-- Icon Cards-->
         <div class="row">
@@ -28,6 +35,7 @@
 
         <Modal v-if="showModal" :serie="serieId" v-on:dicreasePhotos="dicreasePhotos" :photos='photosToSend'></Modal>
         <Create v-if="showCreate" v-on:reloadSeries="reloadSeries"></Create>
+        <AddPhoto v-if="showAddPhoto" :series="series"></AddPhoto>
     </div>
 </template>
 
@@ -35,10 +43,11 @@
 import axios from "axios"
 import Modal from '../Modal.vue'
 import Create from '../Create.vue'
+import AddPhoto from '../AddPhoto.vue'
 
 export default {
     components:{
-        Modal, Create
+        Modal, Create, AddPhoto
     },
     data(){
         return{
@@ -48,7 +57,8 @@ export default {
             serieId:"",
             description:"",
             showModal:false,
-            showCreate:false
+            showCreate:false,
+            showAddPhoto:false
         }
     },
     mounted(){
@@ -96,6 +106,9 @@ export default {
         },
         showCreateModal(){
             this.showCreate = true;
+        },
+        showAddPhotoModal(){
+            this.showAddPhoto = true;
         },
         reloadSeries(){
             this.showCreate = false;
