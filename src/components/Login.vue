@@ -65,5 +65,8 @@ export default {
 
     button{
         margin-top: 30px;
+        z-index: 333;
+        background-color: #DE685F;
+        color: white
     }
 </style>

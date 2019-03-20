@@ -83,8 +83,14 @@ export default {
         width:100%;
     }
 
+    .btn{
+        background-color: #DE685F;
+        color: white
+    }
+
     button{
         margin-top: 30px;
+        
     }
 
 </style>
