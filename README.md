@@ -14,6 +14,10 @@ npm run serve
 ```
 Puis rendez vous sur l'adresse [http://localhost:8080](http://localhost:8080)  
 
+## Tester le projet
+Pour tester cette application, vous aurez besoin d'avoir les APIs qui s'executent en fond.
+Referez vous au projet [Geoquizz_backend](https://github.com/RohrbacherLeon/Geoquizz_backend)
+
 ## Credentials de tests
 Un compte utilisateur est disponible avec les credentials suivantes :  
 * Login : toto
