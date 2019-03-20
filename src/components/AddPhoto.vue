@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="addPhoto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+    <div class="modal fade" id="addPhoto" tabindex="-1" role="dialog" aria-hidden="true" >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
@@ -10,7 +10,10 @@
                     <div class="form-group">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="customFile" @change="setImage">
-                            <label class="custom-file-label" for="customFile">Choisir une image</label>
+                            <label class="custom-file-label" for="customFile">
+                                <span v-if="image">{{image.name}}</span>
+                                <span v-else>Choisir une image</span>
+                            </label>
                         </div>
                     </div>
                     <div class="row">
@@ -29,6 +32,7 @@
                     </div>
                     <div class="row">
                         <div class="col-6">
+                            <label for="">Serie</label>
                             <select class="custom-select" v-model="serieId">
                                 <option value="-1">Choisir une serie</option>
                                 <option v-for="(serie, index) in series" :key="index" :value="serie.id">{{serie.ville}}</option>
@@ -58,7 +62,6 @@
 <script>
 import axios from "axios"
 export default {
-    props:['series'],
     data() {
         return {
             longitude:"",
@@ -66,9 +69,15 @@ export default {
             description: "",
             image:null,
             serieId:'',
+            series:[],
             errors:[]
 
         }
+    },
+    mounted() {
+        axios.get(`http://localhost:8080/series`).then(res => {
+            this.series = res.data._embedded.series.slice(1);
+        })
     },
 
     methods: {
@@ -115,6 +124,7 @@ export default {
                     axios.put(`http://localhost:8080/photos/${photo.id}`, photo, config).then(result => {
                         this.reset()
                         $('#addPhoto').modal('hide')
+                        this.$emit('imageAdded')
                     })
 
                     

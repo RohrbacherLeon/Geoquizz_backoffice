@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import Register from './components/Register.vue'
 import Login from './components/Login.vue'
 import Dashboard from './components/Dashboard.vue'
+import Home from './components/pages/Home.vue'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter);
@@ -25,6 +26,10 @@ const isNotLogged = (to, from, next) => {
 }
 
 const routes = [
+  { 
+    path: '/', 
+    component: Home
+  },
   { 
     path: '/login', 
     component: Login,

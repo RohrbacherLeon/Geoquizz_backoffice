@@ -1,28 +1,26 @@
 <template>
-    <div>
+    <form class="form-signup container">
         <div v-if="error" class="alert alert-danger text-center" role="alert">
             {{error}}
         </div>
-        <form class="form-signup container">
-            <h1 class="h3 mb-3 font-weight-normal">Inscription</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Inscription</h1>
 
-            <div class="form-group">
-                <label for="inputText" class="sr-only">Identifiant</label>
-                <input v-model="login" type="text" id="inputText" class="form-control" placeholder="Identifiant" required="" autofocus="">
-            </div>
+        <div class="form-group">
+            <label for="inputText" class="sr-only">Identifiant</label>
+            <input v-model="login" type="text" id="inputText" class="form-control" placeholder="Identifiant" required="" autofocus="">
+        </div>
 
-            <div class="form-group">
-                <label for="inputPassword" class="sr-only">Mot de passe</label>
-                <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required="">
-            </div>
+        <div class="form-group">
+            <label for="inputPassword" class="sr-only">Mot de passe</label>
+            <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required="">
+        </div>
 
-            <div class="form-group">
-                <label for="inputPasswordConf" class="sr-only">Confirmation du mot de passe</label>
-                <input v-model="passwordConfirm" type="password" id="inputPasswordConf" class="form-control" placeholder="Retaper votre mot de passe" required="">
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" @click="signup" type="submit">S'inscrire</button>
-        </form>
-    </div>
+        <div class="form-group">
+            <label for="inputPasswordConf" class="sr-only">Confirmation du mot de passe</label>
+            <input v-model="passwordConfirm" type="password" id="inputPasswordConf" class="form-control" placeholder="Confirmez votre mot de passe" required="">
+        </div>
+        <button class="btn btn-lg btn-block" @click="signup" type="submit">S'inscrire</button>
+    </form>
 </template>
 
 <script>
@@ -66,7 +64,9 @@ export default {
 
 <style>
 
-.form-signup{
+    
+
+    .form-signup{
         flex-grow: 1;
         width: 100%;
         max-width: 330px;
@@ -83,8 +83,14 @@ export default {
         width:100%;
     }
 
+    .btn{
+        background-color: #DE685F;
+        color: white
+    }
+
     button{
         margin-top: 30px;
+        
     }
 
 </style>
