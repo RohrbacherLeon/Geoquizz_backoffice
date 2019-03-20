@@ -11,7 +11,7 @@
             <label for="inputPassword" class="sr-only">Mot de passe</label>
             <input v-model="password" type="password" id="inputPassword" class="form-control" placeholder="Mot de passe" required="">
         </div>
-        <button class="btn btn-lg btn-primary btn-block" @click="signin" type="submit">Se connecter</button>
+        <button class="btn btn-lg btn-block" @click="signin" type="submit">Se connecter</button>
     </form>
 </template>
 
@@ -34,6 +34,7 @@ export default {
             }).then(res => {
                 localStorage.setItem("user", JSON.stringify({token: res.data.token, id: res.data.id}));
                 console.log(res.data)
+                this.$emit('login')
                 this.$router.push('/dashboard')
             }).catch(err => {
                 console.log(err)

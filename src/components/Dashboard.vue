@@ -5,15 +5,9 @@
 
             <div class="container-fluid">
 
-                <!-- Breadcrumbs-->
-                <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="#">Dashboard</a>
-                </li>
-                    <li class="breadcrumb-item active">{{breadcrumb_active}}</li>
-                </ol>
+                <Series v-if="showSeries" v-on:findPhotos="findPhotos"></Series>
+                <Photos v-if="showPhotos" :photos="photos" :serie="serie"></Photos>
 
-                <Photos></Photos>
 
             </div>
 
@@ -27,18 +21,31 @@
 </template>
 
 <script>
+import Series from './dashboard/Series.vue'
+import axios from "axios"
 import Photos from './dashboard/Photos.vue'
 export default {
-    components:{Photos},
+    components:{Series,Photos},
     data() {
         return {
-            breadcrumb_active:""
+            showPhotos:false,
+            showSeries:true,
+            photos:[],
+            serie:{}
         }
     },
 
     methods: {
-        setBreadcrumbs(bc){
-            this.breadcrumb_active = bc
+        findPhotos(serie){
+            axios.get(`http://localhost:8080/series/${serie.id}/photos`).then(res => {
+                this.photos = res.data._embedded.photos;
+                this.serie = serie;
+                this.toggleSeriePhotos()
+            })
+        },
+        toggleSeriePhotos(){
+            this.showPhotos = !this.showPhotos
+            this.showSeries = !this.showSeries
         }
     },
 

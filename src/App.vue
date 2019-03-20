@@ -1,20 +1,27 @@
 <template>
   <div id="app">
-    <Menu></Menu>
-    <router-view></router-view>
+    <Menu ref="menu"></Menu>
+    <router-view v-on:login="login"></router-view>
   </div>
 </template>
 
 <script>
-import Login from './components/Login.vue'
-import Register from './components/Register.vue'
 import Menu from './components/Menu.vue'
 
 export default {
   name: 'app',
   components: {
-    Menu, Login, Register
-  }
+    Menu
+  },
+  data() {
+    return {
+    }
+  },
+  methods: {
+    login(){
+      this.$refs.menu.log = true;
+    }
+  },
 }
 </script>
 
@@ -24,5 +31,8 @@ export default {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    background-color: #eee;
 }
 </style>
