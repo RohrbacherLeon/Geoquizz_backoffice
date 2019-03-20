@@ -37,9 +37,7 @@ export default {
             if(confirm('Voulez vous vraiment supprimer cette photo')){
                 let config = {headers:{'x-token':photo.token}}
                 axios.delete(`http://localhost:8080/photos/${photo.id}`, config).then(res => {
-                    console.log(res.data);
                     this.photos.splice(this.photos.indexOf(photo),1);
-                    
                 })
             }
         },
